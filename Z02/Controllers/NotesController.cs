@@ -5,11 +5,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Z02.Models;
+using Z02.Models.DBModel;
 using Z02.Repositories;
 
 namespace Z02.Controllers{
     public class NotesController : Controller{
-        readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
+        private readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
+        private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
         List<NoteWithoutContentModel> _notes;
         SelectList _allCategories;
         DateTime _startDate;
@@ -41,7 +43,8 @@ namespace Z02.Controllers{
         }
 
         private void Update (){
-            _notes = _notesFileRepository.FindAll ();
+//            _notes = _notesFileRepository.FindAll ();
+            _notes = _notesDbRepository.FindAll ();
             UpdateListOfAllCategories ();
             UpdateDates ();
         }
