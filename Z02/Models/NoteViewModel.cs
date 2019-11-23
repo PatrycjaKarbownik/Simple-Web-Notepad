@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Z01.Repositories;
+using Z02.Repositories;
 
-namespace Z01.Models{
+namespace Z02.Models{
     public class NoteViewModel{
         [Required(ErrorMessage = "Title is required")]
         public String Title { get; set; }

@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Z01.Models;
+using Z02.Models;
 
-namespace Z01.Repositories{
+namespace Z02.Repositories{
     public class NotesFileRepository : INotesRepository{
         private String directory = "./Resources";
 

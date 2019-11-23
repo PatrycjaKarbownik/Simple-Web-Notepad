@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Z01.Models;
-using Z01.Repositories;
+using Z02.Models;
+using Z02.Repositories;
 
-namespace Z01.Controllers{
+namespace Z02.Controllers{
     public class NotesController : Controller{
         readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
         List<NoteWithoutContentModel> _notes;

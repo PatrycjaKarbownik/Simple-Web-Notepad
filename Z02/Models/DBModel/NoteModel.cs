@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Z01.Models{
+namespace Z02.Models.DBModel{
     public class NoteModel{
         public NoteModel (String title, List<String> categories, DateTime date, String content = "",
                      Boolean isMarkdown = false){

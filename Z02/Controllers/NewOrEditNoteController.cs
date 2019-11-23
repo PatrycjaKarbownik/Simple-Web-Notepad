@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Z01.Models;
-using Z01.Repositories;
+using Z02.Models;
+using Z02.Repositories;
 
-namespace Z01.Controllers{
+namespace Z02.Controllers{
     public class NewOrEditNoteController : Controller{
         private readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
 

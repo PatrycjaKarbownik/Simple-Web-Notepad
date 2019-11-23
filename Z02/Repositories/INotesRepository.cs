@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Z01.Models;
+using Z02.Models;
 
-namespace Z01.Repositories{
+namespace Z02.Repositories{
     public interface INotesRepository{
         List<NoteWithoutContentModel> FindAll ();
         
