@@ -1,0 +1,81 @@
+﻿@model List<NoteWithoutContentModel>
+
+@{
+    ViewData["Title"] = "Notes";
+    List<NoteWithoutContentModel> notes = Model;
+    DateTime startDate = (DateTime) ViewData["StartDate"];
+    DateTime endDate = (DateTime) ViewData["EndDate"];
+    String chosenCategory = (String) ViewData["ChosenCategory"];
+    SelectList allCategories = (SelectList) ViewData["AllCategories"];
+    int currentPage = (int) ViewData["Page"];
+    int allPages = (int) ViewData["AllPages"];
+}
+
+<form class="form-inline row" method="get">
+    <div>
+        <div class="form-group" style="display: flex; align-items: center">
+            <div class="col-sm-3">
+                <label>From:</label>
+                <input type="date" name="startDate" asp-for="@startDate" class="form-control">
+            </div>
+
+            <div class="col-sm-3">
+                <label>To:</label>
+                <input type="date" name="endDate" asp-for="@endDate" class="form-control">
+            </div>
+
+            <div class="col-sm-3">
+                <label>Category:</label>
+                <select class="form-control" name="chosenCategory" asp-for="@chosenCategory" asp-items="allCategories">
+                    <option value="All">All</option>
+                </select>
+            </div>
+
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary col-sm-4" style="margin: 1rem;">Filter</button>
+                <button type="submit" asp-action="Clear" class="btn btn-secondary col-sm-4" style="margin: 1rem">Clear</button>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; align-items: center">
+            <input type="hidden" name="page" value="@currentPage"/>
+            <input type="hidden" name="allPages" value="@allPages"/>
+            <button class="btn btn-link" asp-action="PreviousPage"><<</button>
+            <span>@currentPage/@allPages</span>
+            <button class="btn btn-link" asp-action="NextPage">>></button>
+        </div>
+    </div>
+</form>
+
+<hr/>
+
+<div class="row">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ( var note in notes ){
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">@note.Date.ToString("dd-MM-yyyy")</td>
+                <td style="text-align: center; vertical-align: middle;">@note.Title</td>
+                <td>
+                    <form style="display: flex; flex-direction: row; justify-content: center">
+                        <button type="submit" class="btn btn-warning col-sm-2" style="margin: 1rem" asp-controller="NewOrEditNote" asp-action="Index" asp-route-title="@note.Title">Edit</button>
+                        <button type="submit" class="btn btn-danger col-sm-2" style="margin: 1rem" asp-controller="Notes" asp-action="Delete" asp-route-title="@note.Title">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <form style="display: flex; justify-content: space-between">
+        <button type="submit" class="btn btn-primary col-sm-1" asp-controller="NewOrEditNote" asp-action="Index" asp-route-title="">New</button>
+    </form>
+</div>
