@@ -5,6 +5,7 @@ using Z02.Repositories;
 
 namespace Z02.Models{
     public class NoteViewModel{
+        public int Id { get; set; }
         [Required(ErrorMessage = "Title is required")]
         public String Title { get; set; }
         public List<String> Categories { get; set; } = new List<string> ();
@@ -14,6 +15,9 @@ namespace Z02.Models{
         public Boolean IsMarkdown { get; set; }
         public Boolean IsEdit { get; set; }
 
-        public NoteViewModel (){ Date = DateTime.Now; }
+        public NoteViewModel (){
+            Id = -1;
+            Date = DateTime.Now;
+        }
     }
 }

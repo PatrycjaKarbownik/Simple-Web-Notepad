@@ -18,7 +18,7 @@ namespace Z02.Controllers{
         DateTime _endDate;
 
         public IActionResult Index (DateTime startDate, DateTime endDate, String chosenCategory, int page = 1){
-            Update ();
+            UpdateNotesView ();
             ViewData["Page"] = page;
 
             Filter (startDate, endDate, chosenCategory);
@@ -42,24 +42,16 @@ namespace Z02.Controllers{
             return RedirectToAction (nameof (Index));
         }
 
-        private void Update (){
-//            _notes = _notesFileRepository.FindAll ();
+        private void UpdateNotesView (){
             _notes = _notesDbRepository.FindAll ();
             UpdateListOfAllCategories ();
             UpdateDates ();
         }
 
         private void UpdateListOfAllCategories (){
-            List<String> categoryStrings = new List<String> ();
-            foreach ( var note in _notes ){
-                foreach ( var category in note.Categories ){
-                    if ( categoryStrings.Find (it => it.ToLower().Equals (category.ToLower())) == null )
-                        categoryStrings.Add (category.ToLower());
-                }
-            }
-
             Dictionary<string, string> categoriesDictionary = new Dictionary<string, string> ();
-            categoryStrings.ForEach (it => { categoriesDictionary.Add (it, it); });
+            _notesDbRepository.FindAllCategories ()
+                              .ForEach (it => categoriesDictionary.Add (it.Title, it.Title) );
 
             _allCategories = new SelectList (categoriesDictionary, "Key", "Value");
         }

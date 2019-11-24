@@ -8,7 +8,7 @@ namespace Z02.Repositories{
         
         NoteViewModel FindNoteByTitle (string title);
 
-        void Add (NoteViewModel note);
+        void Add (NoteViewModel model);
         
         void Delete (string title);
         

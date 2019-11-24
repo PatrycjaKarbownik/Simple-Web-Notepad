@@ -65,7 +65,7 @@
                 <td style="text-align: center; vertical-align: middle;">@note.Title</td>
                 <td>
                     <form style="display: flex; flex-direction: row; justify-content: center">
-                        <button type="submit" class="btn btn-warning col-sm-2" style="margin: 1rem" asp-controller="NewOrEditNote" asp-action="Index" asp-route-title="@note.Title">Edit</button>
+                        <button type="submit" class="btn btn-warning col-sm-2" style="margin: 1rem" asp-controller="NewOrEditNote" asp-action="Index" asp-route-id="@note.Id">Edit</button>
                         <button type="submit" class="btn btn-danger col-sm-2" style="margin: 1rem" asp-controller="Notes" asp-action="Delete" asp-route-title="@note.Title">Delete</button>
                     </form>
                 </td>
@@ -77,6 +77,6 @@
 
 <div class="row">
     <form style="display: flex; justify-content: space-between">
-        <button type="submit" class="btn btn-primary col-sm-1" asp-controller="NewOrEditNote" asp-action="Index" asp-route-title="">New</button>
+        <button type="submit" class="btn btn-primary col-sm-1" asp-controller="NewOrEditNote" asp-action="Index" asp-route-id="">New</button>
     </form>
 </div>

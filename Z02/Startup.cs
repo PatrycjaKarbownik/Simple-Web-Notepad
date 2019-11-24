@@ -63,7 +63,7 @@ namespace Z02
             {
 		endpoints.MapControllerRoute(
                     name: "newOrEditNote",
-                    pattern: "{controller=NewOrEditNote}/{action=Index}/{title}");
+                    pattern: "{controller=NewOrEditNote}/{action=Index}/{id}");
                 
                 endpoints.MapControllerRoute(
                     name: "default",

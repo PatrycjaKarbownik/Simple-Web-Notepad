@@ -46,20 +46,20 @@ namespace Z02.Repositories{
             return note;
         }
 
-        public void Add (NoteViewModel note){
+        public void Add (NoteViewModel model){
             StringBuilder stringBuilder = new StringBuilder ("");
 
             stringBuilder.Append ("category:");
-            int numberOfCategories = note.Categories.Count;
+            int numberOfCategories = model.Categories.Count;
             for ( int i = 0; i < numberOfCategories - 1; ++i )
-                stringBuilder.Append (" " + note.Categories[i] + ",");
-            if ( note.Categories.Count != 0 ) stringBuilder.Append (note.Categories.Last ());
+                stringBuilder.Append (" " + model.Categories[i] + ",");
+            if ( model.Categories.Count != 0 ) stringBuilder.Append (model.Categories.Last ());
 
             IFormatProvider culture = new CultureInfo ("en-US", true);
-            stringBuilder.Append ("\ndate: " + note.Date.ToString ("yyyy/MM/dd", culture) + "\n");
+            stringBuilder.Append ("\ndate: " + model.Date.ToString ("yyyy/MM/dd", culture) + "\n");
             
-            stringBuilder.Append (note.Content);
-            string path = directory + "/" + note.Title + "." + (note.IsMarkdown ? "md" : "txt");
+            stringBuilder.Append (model.Content);
+            string path = directory + "/" + model.Title + "." + (model.IsMarkdown ? "md" : "txt");
             
             File.WriteAllText (path, stringBuilder.ToString ());
         }

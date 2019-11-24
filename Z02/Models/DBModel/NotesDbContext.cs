@@ -14,13 +14,19 @@ namespace Z02.Models.DBModel{
         }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder){
-            modelBuilder.Entity<NoteCategory> ().HasKey (i => new{i.CategoryID, i.NoteID});
-            modelBuilder.Entity<NoteCategory> ().HasOne<Note> (i => i.Note)
-                        .WithMany (i => i.NoteCategories)
-                        .HasForeignKey (i => i.NoteID);
-            modelBuilder.Entity<NoteCategory> ().HasOne<Category> (i => i.Category)
-                        .WithMany (i => i.NotesCategory)
-                        .HasForeignKey (i => i.CategoryID);
+            modelBuilder.Entity<Note>()
+                        .HasIndex(n => n.Title)
+                        .IsUnique();
+            modelBuilder.Entity<Category>()
+                        .HasIndex(c => c.Title)
+                        .IsUnique();
+            modelBuilder.Entity<NoteCategory> ().HasKey (it => new{it.CategoryID, it.NoteID});
+            modelBuilder.Entity<NoteCategory> ().HasOne<Note> (it => it.Note)
+                        .WithMany (it => it.NoteCategories)
+                        .HasForeignKey (it => it.NoteID);
+            modelBuilder.Entity<NoteCategory> ().HasOne<Category> (it => it.Category)
+                        .WithMany (it => it.NotesCategory)
+                        .HasForeignKey (it => it.CategoryID);
         }
     }
 }
