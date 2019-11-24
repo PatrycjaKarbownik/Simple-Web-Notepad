@@ -16,24 +16,23 @@ namespace Z02.Controllers{
                 note = _notesDbRepository.FindNoteById (id);
 
             if ( note == null ) note = new NoteViewModel ();
-            else note.IsEdit = true;
 
             return View (note);
         }
 
         [HttpPost]
-        public IActionResult Save (String oldTitle, NoteViewModel note){
+        public IActionResult Save (NoteViewModel note){
             if ( ModelState.IsValid ){
-                /*if ( IfTitleExists(oldTitle, note.Title) ){
+                if ( IfTitleExists(note) ){
                     ViewData["TitleExists"] = true;
                     return View("Index", note);
-                }*/
+                }
                     
                 if ( note.Id == -1 ) _notesDbRepository.Add (note);
-//                    _notesFileRepository.Add (note);
                 else{
-                    if ( _notesFileRepository.FindNoteByTitle (oldTitle) == null ) return NotFound ();
-                    _notesFileRepository.Update (oldTitle, note);
+                    if ( _notesDbRepository.FindNoteById (note.Id) == null ) return NotFound ();
+                    Console.WriteLine("update");
+//                    _notesFileRepository.Update (oldTitle, note);
                 }
                 return Cancel ();
             }
@@ -44,10 +43,11 @@ namespace Z02.Controllers{
 
         public IActionResult Cancel (){ return RedirectToAction ("Index", "Notes"); }
 
-        private Boolean IfTitleExists (String oldTitle, String newTitle){
-            List<String> noteTitles = _notesFileRepository.FindAll ().ConvertAll (it => it.Title);
-            if ( string.IsNullOrEmpty (oldTitle) ) oldTitle = newTitle;
-            if ( !oldTitle.Equals (newTitle) && noteTitles.Contains (newTitle) ) return true;
+        private Boolean IfTitleExists (NoteViewModel note){
+            List<String> noteTitles = _notesDbRepository.FindAll ()
+                                                        .FindAll (noteFromDb => noteFromDb.Id != note.Id)
+                                                        .ConvertAll (it => it.Title);
+            if ( noteTitles.Contains (note.Title) ) return true;
             return false;
         }
     }

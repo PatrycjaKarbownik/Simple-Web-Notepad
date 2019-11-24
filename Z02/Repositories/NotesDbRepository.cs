@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Z02.Models;
 using Z02.Models.DBModel;
 
@@ -18,19 +17,6 @@ namespace Z02.Repositories{
             }
 
             return notes;
-        }
-
-        private List<string> mapNoteCategoriesToStringCategories (NotesDbContext context, Note note){
-            List<string> stringCategories = new List<string> ();
-            List<NoteCategory> noteCategories = context.NoteCategory.ToList ()
-                                                       .FindAll (it => it.Note == note);
-
-            foreach ( var noteCategory in noteCategories ){
-                Category category = context.Categories.Find (noteCategory.CategoryID);
-                stringCategories.Add (category.Title);
-            }
-
-            return stringCategories;
         }
 
         public NoteViewModel FindNoteById (int id){
@@ -87,6 +73,19 @@ namespace Z02.Repositories{
             }
 
             return noteCategories;
+        }
+        
+        private List<string> mapNoteCategoriesToStringCategories (NotesDbContext context, Note note){
+            List<string> stringCategories = new List<string> ();
+            List<NoteCategory> noteCategories = context.NoteCategory.ToList ()
+                                                       .FindAll (it => it.Note == note);
+
+            foreach ( var noteCategory in noteCategories ){
+                Category category = context.Categories.Find (noteCategory.CategoryID);
+                stringCategories.Add (category.Title);
+            }
+
+            return stringCategories;
         }
     }
 }

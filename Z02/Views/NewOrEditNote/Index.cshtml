@@ -4,11 +4,11 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
     Boolean titleExists = (Boolean) ViewData["TitleExists"];
-    String oldTitle = Model.Title;
 }
 
 <form asp-controller="NewOrEditNote">
-    <input type="hidden" name="oldTitle" value="@oldTitle"/>
+    <input type="hidden" asp-for="@Model.Id">
+    @* <input type="hidden" name="id" value="@Model.Id"/> *@
     @Html.ValidationSummary(true)
     <div class="row" style="display: flex; align-items: center">
         <div class="form-group col-sm-8" style="display: flex; align-items: center">
@@ -74,8 +74,6 @@
         <button type="submit" class="btn btn-success col-sm-1" style="margin: 1rem" asp-action="Save">OK</button>
         <button type="submit" class="btn btn-default col-sm-1" style="margin: 1rem" asp-action="Cancel">Cancel</button>
     </div>
-
-    <input type="hidden" asp-for="IsEdit" value="@Model.IsEdit"/>
 </form>
 
 <script type="text/javascript">
