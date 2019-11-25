@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<form asp-controller="NewOrEditNote">
+<form asp-controller="NewOrEditNote" style="margin-top: 1rem">
     <input type="hidden" asp-for="@Model.Id">
     <input type="hidden" asp-for="@Model.RowVersion">
     @Html.ValidationSummary(true)

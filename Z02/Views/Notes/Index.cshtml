@@ -12,29 +12,29 @@
     int allPages = (int) ViewData["AllPages"];
 }
 
-<form class="form-inline row" method="get">
+<form class="form-inline row" method="get" style="margin-top: 1rem">
     <div>
-        <div class="form-group" style="display: flex; align-items: center">
-            <div class="col-sm-3">
-                <label>From:</label>
+        <div class="form-group">
+            <div class="col-sm-3" style="display: flex; flex-direction: row; margin: 1rem;">
+                <label style="margin-right: .5rem">From:</label>
                 <input type="date" name="startDate" asp-for="@startDate" class="form-control">
             </div>
 
-            <div class="col-sm-3">
-                <label>To:</label>
+            <div class="col-sm-3" style="display: flex; flex-direction: row; margin: 1rem;">
+                <label style="margin-right: .5rem">To:</label>
                 <input type="date" name="endDate" asp-for="@endDate" class="form-control">
             </div>
 
-            <div class="col-sm-3">
-                <label>Category:</label>
-                <select class="form-control" name="chosenCategory" asp-for="@chosenCategory" asp-items="allCategories">
+            <div class="col-sm-4" style="display: flex; flex-direction: row; margin: 1rem;">
+                <label class="col-sm-4" style="margin-right: .5rem">Category:</label>
+                <select class="form-control col-sm-8" name="chosenCategory" asp-for="@chosenCategory" asp-items="allCategories">
                     <option value="All">All</option>
                 </select>
             </div>
 
-            <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary col-sm-4" style="margin: 1rem;">Filter</button>
-                <button type="submit" asp-action="Clear" class="btn btn-secondary col-sm-4" style="margin: 1rem">Clear</button>
+            <div class="col-sm-12" style="display: flex; flex-direction: row; justify-content: flex-end">
+                <button type="submit" class="btn btn-primary col-sm-1" style="margin: 1rem;">Filter</button>
+                <button type="submit" asp-action="Clear" class="btn btn-secondary col-sm-1" style="margin: 1rem">Clear</button>
             </div>
         </div>
         <div style="display: flex; justify-content: flex-end; align-items: center">
@@ -77,6 +77,6 @@
 
 <div class="row">
     <form style="display: flex; justify-content: space-between">
-        <button type="submit" class="btn btn-primary col-sm-1" asp-controller="NewOrEditNote" asp-action="Index" asp-route-id="">New</button>
+        <button type="submit" class="btn btn-primary" asp-controller="NewOrEditNote" asp-action="Index" asp-route-id="">New</button>
     </form>
 </div>
