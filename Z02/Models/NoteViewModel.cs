@@ -12,9 +12,9 @@ namespace Z02.Models{
         public String Title { get; set; }
 
         public List<String> Categories { get; set; } = new List<string> ();
+        [Required (ErrorMessage = "Date is required")]
         [DataType (DataType.Date)] public DateTime Date { get; set; }
         public String Content { get; set; }
-        public Boolean IsMarkdown { get; set; }
 
         public NoteViewModel (){
             Id = -1;
