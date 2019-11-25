@@ -9,7 +9,7 @@ using Z02.Repositories;
 
 namespace Z02.Controllers{
     public class NotesController : Controller{
-        int _maxNotesOnPage = 10;
+        int _maxNotesOnPage = 5;
         private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
         List<NoteWithoutContentModel> _notes;
         SelectList _allCategories;
@@ -21,7 +21,7 @@ namespace Z02.Controllers{
             ViewData["Page"] = page;
 
             Filter (startDate, endDate, chosenCategory);
-            ViewData["AllPages"] = _notes.Count / 11 + 1;
+            ViewData["AllPages"] = _notes.Count / (_maxNotesOnPage + 1) + 1;
             Pagination (page);
             
             ViewData["AllCategories"] = _allCategories;
@@ -43,6 +43,7 @@ namespace Z02.Controllers{
 
         private void UpdateNotesView (){
             _notes = _notesDbRepository.FindAll ();
+            _notes.Sort((x,y) => x.Date.CompareTo(y.Date));
             UpdateListOfAllCategories ();
             UpdateDates ();
         }

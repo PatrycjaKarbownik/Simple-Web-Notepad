@@ -9,7 +9,6 @@ namespace Z02.Controllers{
         private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
 
         public IActionResult Index (int id){
-            ViewData["TitleExists"] = false;
             NoteViewModel note = null;
             if ( id != -1 )
                 note = _notesDbRepository.FindNoteById (id);
@@ -22,22 +21,33 @@ namespace Z02.Controllers{
         [HttpPost]
         public IActionResult Save (NoteViewModel note){
             if ( ModelState.IsValid ){
-                if ( IfTitleExists(note) ){
-                    ViewData["TitleExists"] = true;
-                    return View("Index", note);
+                if ( IfTitleExists (note) ){
+                    ModelState.AddModelError ("Title", "Title already exists");
+                    return View ("Index", note);
                 }
-                    
+
                 if ( note.Id == -1 ) _notesDbRepository.Add (note);
                 else{
-                    if ( _notesDbRepository.FindNoteById (note.Id) == null ) return NotFound ();
-                    Console.WriteLine("update");
-//                    _notesFileRepository.Update (oldTitle, note);
+                    UpdateState updateResult = _notesDbRepository.Update (note);
+
+                    if ( updateResult == UpdateState.Deleted ){
+                        ModelState.AddModelError ("Title",
+                                                  "Update not available. The note was deleted by another user.");
+                        return View ("Index", note);
+                    }
+
+                    if ( updateResult == UpdateState.Changed ){
+                        ModelState.Clear ();
+                        ModelState.AddModelError ("Title",
+                                                  "Update not available. The note was edited by another user "
+                                                  + "after you got the original value.");
+                        return View ("Index", note);
+                    }
                 }
                 return Cancel ();
             }
 
-            ViewData["TitleExists"] = false;
-            return View("Index", note);
+            return View ("Index", note);
         }
 
         public IActionResult Cancel (){ return RedirectToAction ("Index", "Notes"); }

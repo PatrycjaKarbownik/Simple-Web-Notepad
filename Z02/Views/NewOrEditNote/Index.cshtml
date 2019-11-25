@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
-    Boolean titleExists = (Boolean) ViewData["TitleExists"];
 }
 
 <form asp-controller="NewOrEditNote">
@@ -16,9 +15,6 @@
             <div class="col-sm-9">
                 <input type="text" asp-for="@Model.Title" class="form-control">
                 @Html.ValidationMessageFor(model => model.Title, null, new{style = "color: red"})
-                @if ( titleExists ){
-                    <div style="color: red">Title exists</div>
-                }
             </div>
         </div>
         <div class="form-group col-sm-3">
