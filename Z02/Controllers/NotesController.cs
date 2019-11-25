@@ -5,13 +5,11 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Z02.Models;
-using Z02.Models.DBModel;
 using Z02.Repositories;
 
 namespace Z02.Controllers{
     public class NotesController : Controller{
         int _maxNotesOnPage = 10;
-        private readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
         private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
         List<NoteWithoutContentModel> _notes;
         SelectList _allCategories;
@@ -38,8 +36,8 @@ namespace Z02.Controllers{
             return View (_notes);
         }
 
-        public IActionResult Delete (String title){
-            _notesFileRepository.Delete (title);
+        public IActionResult Delete (int id){
+            _notesDbRepository.Delete (id);
             return RedirectToAction (nameof (Index));
         }
 

@@ -1,3 +1,0 @@
-category: upper case, ntr
-date: 2019/11/09
-This is note with TXT (upper case) extension

@@ -6,11 +6,11 @@ namespace Z02.Repositories{
     public interface INotesRepository{
         List<NoteWithoutContentModel> FindAll ();
         
-        NoteViewModel FindNoteByTitle (string title);
+        NoteViewModel FindNoteById (int id);
 
         void Add (NoteViewModel model);
         
-        void Delete (string title);
+        void Delete (int id);
         
         void Update (String oldTitle, NoteViewModel note);
     }

@@ -30,10 +30,6 @@ namespace Z02.Repositories{
             }
         }
         
-        public NoteViewModel FindNoteByTitle (string id){
-            return new NoteViewModel ();
-        }
-
         public void Add (NoteViewModel model){
             using ( var context = new NotesDbContext () ){
                 var note = Mapper.NoteViewModelToNote (model);
@@ -44,7 +40,15 @@ namespace Z02.Repositories{
             }
         }
 
-        public void Delete (string title){ throw new NotImplementedException (); }
+        public void Delete (int id){
+            using ( var context = new NotesDbContext () ){
+                Note original = context.Notes.Find (id);
+                if(original == null) return;
+
+                context.Notes.Remove (original);
+                context.SaveChanges ();
+            }
+        }
         public void Update (string oldTitle, NoteViewModel note){ throw new NotImplementedException (); }
 
         public List<Category> FindAllCategories (){
