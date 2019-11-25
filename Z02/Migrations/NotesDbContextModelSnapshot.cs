@@ -32,6 +32,10 @@ namespace Z02.Migrations
 
                     b.HasKey("CategoryID");
 
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasFilter("[Title] IS NOT NULL");
+
                     b.ToTable("Category","karbownik");
                 });
 
@@ -48,11 +52,20 @@ namespace Z02.Migrations
                     b.Property<DateTime>("NoteDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
                     b.HasKey("NoteID");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Note","karbownik");
                 });

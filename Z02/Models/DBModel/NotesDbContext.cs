@@ -17,14 +17,24 @@ namespace Z02.Models.DBModel{
             modelBuilder.Entity<Note>()
                         .HasIndex(n => n.Title)
                         .IsUnique();
+            
+            modelBuilder.Entity<Note>()
+                        .Property(it => it.RowVersion).IsConcurrencyToken();
+            
             modelBuilder.Entity<Category>()
                         .HasIndex(c => c.Title)
                         .IsUnique();
-            modelBuilder.Entity<NoteCategory> ().HasKey (it => new{it.CategoryID, it.NoteID});
-            modelBuilder.Entity<NoteCategory> ().HasOne<Note> (it => it.Note)
+            
+            modelBuilder.Entity<NoteCategory> ()
+                        .HasKey (it => new{it.CategoryID, it.NoteID});
+            
+            modelBuilder.Entity<NoteCategory> ()
+                        .HasOne<Note> (it => it.Note)
                         .WithMany (it => it.NoteCategories)
                         .HasForeignKey (it => it.NoteID);
-            modelBuilder.Entity<NoteCategory> ().HasOne<Category> (it => it.Category)
+            
+            modelBuilder.Entity<NoteCategory> ()
+                        .HasOne<Category> (it => it.Category)
                         .WithMany (it => it.NotesCategory)
                         .HasForeignKey (it => it.CategoryID);
         }

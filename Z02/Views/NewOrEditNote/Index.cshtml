@@ -8,7 +8,7 @@
 
 <form asp-controller="NewOrEditNote">
     <input type="hidden" asp-for="@Model.Id">
-    @* <input type="hidden" name="id" value="@Model.Id"/> *@
+    <input type="hidden" asp-for="@Model.RowVersion">
     @Html.ValidationSummary(true)
     <div class="row" style="display: flex; align-items: center">
         <div class="form-group col-sm-8" style="display: flex; align-items: center">

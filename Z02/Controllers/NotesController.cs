@@ -10,6 +10,7 @@ using Z02.Repositories;
 
 namespace Z02.Controllers{
     public class NotesController : Controller{
+        int _maxNotesOnPage = 10;
         private readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
         private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
         List<NoteWithoutContentModel> _notes;
@@ -76,10 +77,10 @@ namespace Z02.Controllers{
         }
 
         private void Pagination (int page){
-            int numberOfRemainingNotes = _notes.Count - 10 * (page - 1);
-            int count = numberOfRemainingNotes < 10 ? numberOfRemainingNotes : 10;
+            int numberOfRemainingNotes = _notes.Count - _maxNotesOnPage * (page - 1);
+            int count = numberOfRemainingNotes < _maxNotesOnPage ? numberOfRemainingNotes : _maxNotesOnPage;
 
-            _notes = _notes.GetRange (10 * (page - 1), count);
+            _notes = _notes.GetRange (_maxNotesOnPage * (page - 1), count);
         }
 
         public IActionResult Clear (){ return RedirectToAction (nameof (Index)); }

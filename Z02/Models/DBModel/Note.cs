@@ -10,10 +10,16 @@ namespace Z02.Models.DBModel{
         
         [DatabaseGenerated (DatabaseGeneratedOption.Identity)]
         public int NoteID { get; set; }
+        
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
+        [Required]
         public DateTime NoteDate { get; set; }
 
-        [StringLength (64)] public string Title { get; set; }
+        [Required]
+        [StringLength (64)]
+        public string Title { get; set; }
 
         public string Description { get; set; }
 

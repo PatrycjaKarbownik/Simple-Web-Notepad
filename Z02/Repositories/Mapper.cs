@@ -4,7 +4,7 @@ using Z02.Models;
 using Z02.Models.DBModel;
 
 namespace Z02.Repositories{
-    public class Mapper{
+    public static class Mapper{
         public static NoteWithoutContentModel NoteToNoteWithoutContentModel (Note note, List<string> categories){
             return new NoteWithoutContentModel{
                 Id = note.NoteID,
@@ -17,6 +17,7 @@ namespace Z02.Repositories{
         public static NoteViewModel NoteToNoteViewModel (Note note, List<string> categories){
             return new NoteViewModel{
                 Id = note.NoteID,
+                RowVersion = note.RowVersion,
                 Date = note.NoteDate,
                 Title = note.Title,
                 Content = note.Description,
@@ -26,6 +27,7 @@ namespace Z02.Repositories{
         
         public static Note NoteViewModelToNote (NoteViewModel model){
             return new Note{
+                RowVersion = model.RowVersion,
                 NoteDate = model.Date,
                 Title = model.Title,
                 Description = model.Content

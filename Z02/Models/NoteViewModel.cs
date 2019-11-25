@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Z02.Models{
     public class NoteViewModel{
         public int Id { get; set; }
+        
+        public byte[] RowVersion { get; set; }
 
         [Required (ErrorMessage = "Title is required")]
         public String Title { get; set; }

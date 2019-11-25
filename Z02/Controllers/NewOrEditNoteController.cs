@@ -6,7 +6,6 @@ using Z02.Repositories;
 
 namespace Z02.Controllers{
     public class NewOrEditNoteController : Controller{
-        private readonly NotesFileRepository _notesFileRepository = new NotesFileRepository ();
         private readonly NotesDbRepository _notesDbRepository = new NotesDbRepository ();
 
         public IActionResult Index (int id){
